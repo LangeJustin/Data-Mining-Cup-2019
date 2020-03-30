@@ -14,3 +14,25 @@ Empirical research conducted by suppliers has shown that discrepancies are found
 
 The objective therfore was to create a model to classify the scans as fraudulent or non-fraudulent. The classification does not take into account whether the fraud was committed intentionally or inadvertently.
 
+### Summary
+| Algorithm | Test in % | Train in % | CV | Hyperp. tuning |  Weight Config  | threshold | Precision | Recall | Domain-specific exp. return |
+|:---------:|:---------:|:----------:|:---------------:|:------------------:|:---------------:|:------------------:|:---------:|:------:|:---------------------------:|
+|     NB (Baseline)    |     80    |     20     |        -        |          -         |        -        |          -         |    .33    |   .94  |            - 929.970 €            |
+|    SVM    |     80    |     20     |        -        |          -         |  {0:1.0, 1:2.0} |          -         |    .59    |   1.0  |            - 267.760 €            |
+|     LR    |     80    |     20     |        -        |          -         |  {0:1.0, 1:1.0} |          -         |    .67    |   1.0  |            -140.645 €            |
+|     RF    |     80    |     20     |        -        |          -         | {0:1.0, 1:50.0} |          -         |    .85    |   .69  |             - 72.120 €            |
+|    SVM    |     80    |     20     |        -        |          -         |  {0:1.0, 1:2.0} |        >0.8        |    .88    |   .94  |              53.880 €             |
+|     LR    |     80    |     20     |        -        |          -         |  {0:1.0, 1:1.0} |        >0.9        |    .83    |   .62  |             55.415 €            |
+|     RF    |     80    |     20     |        -        |          -         | {0:1.0, 1:10.0} |        >0.65       |    1.0    |   .69  |             - 14.340 €             |
+|    SVM    |     80    |     20     |     10 Fold     |         Yes        |  {0:1.0, 1:2.0} |        >0.95        |    .82    |   .94  |             53.335 €             |
+|     LR    |     80    |     20     |     10 Fold     |         Yes        |  {0:1.0, 1:1.0} |        >0.9        |    .88    |   .96  |             54.020 €            |
+|     RF    |     80    |     20     |     10 Fold     |         Yes        | {0:1.0, 1:10.0} |        >0.65       |     1.    |   .44  |             - 5.770 €             |
+
+### Remarks
+1. There is more to lose then to win
+The prediction model required an extreme high precision rate with low False Positive rates. Implementing a prediction model which is not generalising properly could result in catastrophic effects in returning profits. A good generalised model would however only create small increasing profit margins. Therefore, it is necessary to question if we should provide such reactive approaches in general, but rather a proactive approach:
+
+2. Proactive vs. reactive
+Our model is a reactive approach based on the customers shopping pattern. Since there is much to lose in this reactive approach, it is reasonable to consider a proactive approach. An example of such proactive approach would be staff standing at the scan ensemble to monitor a bunch of scanners. This is a common approach in for common retailers too (IKEA) that provide self-service checkouts.
+
+Furthermore, even if the retailer implements a reactive model which generates negative returns, it might still be useful if they would consider the costs of staff savings. Since a reactive approach requires staff which is constantly monitoring, it could be that a model which is generating negative return might generate overall savings if staff could therefore be reduced.
